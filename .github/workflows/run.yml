@@ -1,4 +1,4 @@
-name: ML Catalog Bot
+name: ML Catalog Bot (debug)
 
 on:
   workflow_dispatch:
@@ -13,21 +13,35 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      - name: Debug – show working directory
+        run: |
+          pwd
+          echo "----"
+          ls -la
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Debug workspace
+      - name: Debug – node & npm versions
         run: |
-          echo "PWD:"
-          pwd
-          echo ""
-          echo "LS:"
-          ls -la
-          echo ""
-          echo "Node version:"
           node -v
+          npm -v
+
+      - name: Install dependencies
+        run: |
+          npm init -y
+          npm install playwright
+          npx playwright install chromium
+
+      - name: Debug – node_modules
+        run: |
+          ls -la
+          echo "----"
+          ls -la node_modules | head -n 20
 
       - name: Run script
-        run: node script.js
+        run: |
+          echo "Running script.js"
+          node script.js
