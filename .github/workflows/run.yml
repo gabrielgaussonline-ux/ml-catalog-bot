@@ -18,5 +18,16 @@ jobs:
         with:
           node-version: 20
 
+      - name: Debug workspace
+        run: |
+          echo "PWD:"
+          pwd
+          echo ""
+          echo "LS:"
+          ls -la
+          echo ""
+          echo "Node version:"
+          node -v
+
       - name: Run script
         run: node script.js
